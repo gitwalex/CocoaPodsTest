@@ -7,9 +7,27 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsCompose)
     alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.cocoapods)
 }
 
 kotlin {
+
+    cocoapods {
+        version = "1.0.0"
+        ios.deploymentTarget = "14.1"
+        summary = "Some description for the Shared Module"
+        homepage = "Link to the Shared Module homepage"
+        framework {
+            baseName = "pod"
+            isStatic = false
+            binaryOption("bundleId", "com.gerwalex.maicard")
+            linkerOpts.add("-lsqlite3")
+        }
+        //podfile = project.file("../iosApp/Podfile")
+        pod("Google-Mobile-Ads-SDK")
+//        pod ("Firebase/Core")
+    }
+
     androidTarget {
         @OptIn(ExperimentalKotlinGradlePluginApi::class)
         compilerOptions {
